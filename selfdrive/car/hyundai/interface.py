@@ -37,6 +37,9 @@ class CarInterface(CarInterfaceBase):
     # Most Hyundai car ports are community features for now
     ret.communityFeature = True
 
+    ret.steerActuatorDelay = 0.1  # Default delay
+    ret.steerRateCost = 0.5
+    ret.steerLimitTimer = 0.8
     tire_stiffness_factor = 1.
 
     eps_modified = False
@@ -44,7 +47,8 @@ class CarInterface(CarInterfaceBase):
       if fw.ecu == "eps" and b"," in fw.fwVersion:
         eps_modified = True
 
-    ret.maxSteeringAngleDeg = 90.
+    ret.maxSteeringAngleDeg = 370.
+    ret.startAccel = 1.0
 
     # lateral
     ret.lateralTuning.init('lqr')
@@ -64,7 +68,7 @@ class CarInterface(CarInterfaceBase):
     ret.steerLimitTimer = 2.5
     ret.steerRateCost = 0.4
     ret.steerMaxBP = [0.]
-    ret.steerMaxV = [1.5]
+    ret.steerMaxV = [2.0]
 
     # longitudinal
     ret.longitudinalTuning.kpBP = [0., 10.*CV.KPH_TO_MS, 20.*CV.KPH_TO_MS, 40.*CV.KPH_TO_MS, 70.*CV.KPH_TO_MS, 100.*CV.KPH_TO_MS, 130.*CV.KPH_TO_MS]
